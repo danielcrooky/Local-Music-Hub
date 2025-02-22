@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Music Controller</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+<body>
+    <div class="container" style="padding-bottom: 120px;">
+        <h1 class="my-3 text-center">Music Controller</h1>
+        
+        <!-- Search form -->
+        <form action="/search" method="post" class="d-flex justify-content-center my-2">
+            <input type="text" name="query" class="form-control mr-2" placeholder="Search for a song..." style="flex-grow: 1; max-width: 300px;">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+
+        <!-- Queue controls -->
+        <div class="my-3">
+            <form method="POST" action="/play_current_queue" class="d-flex justify-content-center mb-2">
+                <button type="submit" class="btn btn-success">Play Current Queue</button>
+            </form>
+            <form method="POST" action="/shuffle_queue" class="d-flex justify-content-center mb-2">
+                <button type="submit" class="btn btn-warning">Shuffle Queue</button>
+            </form>
+            <form action="/clear_queue" method="post" class="d-flex justify-content-center mb-2">
+                <button type="submit" class="btn btn-danger">Clear Queue</button>
+            </form>
+        </div>
+
+
+        
+        <!-- Current Queue -->
+        <h2 class="my-3 text-center">Current Queue</h2>
+        <ul id="songList" class="list-group">
+            {% for song in songs %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    {{ song.title }}
+                    <div class="btn-group">
+                        <form action="/remove_from_queue" method="post" style="display: inline;">
+                            <input type="hidden" name="id" value="{{ song.id }}">
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </form>
+                        <form action="/move_up" method="post" style="display: inline;">
+                            <input type="hidden" name="id" value="{{ song.id }}">
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="fas fa-arrow-up"></i>
+                            </button>
+                        </form>
+                        <form action="/move_down" method="post" style="display: inline;">
+                            <input type="hidden" name="id" value="{{ song.id }}">
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="fas fa-arrow-down"></i>
+                            </button>
+                        </form>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+
+
+
+
+        <!-- Playlists -->
+        <h2 class="my-3 text-center">Playlists</h2>
+        <ul class="list-group">
+            {% for playlist in playlists %}
+                <li class="list-group-item">
+                    <a href="{{ url_for('playlist', playlist_id=playlist.id) }}">{{ playlist.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Create Playlist -->
+        <h2 class="my-3 text-center">Create Playlist</h2>
+        <form action="/create_playlist" method="post" class="form-inline my-2 justify-content-center">
+            <input type="text" name="name" class="form-control mr-sm-2" placeholder="Playlist name">
+            <button type="submit" class="btn btn-primary mt-2 mt-sm-0">Create</button>
+        </form>
+
+        <!-- Spotify integration -->
+        <br>
+        <br>
+        <div class="d-flex justify-content-center my-3">
+            <form action="/spotify" method="get">
+                <button type="submit" class="btn btn-info">Import Spotify Playlist</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <!-- Player controls -->
+        <div class="d-flex justify-content-around p-3">
+            <form action="/start" method="post">
+                <button type="submit" class="btn btn-secondary">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+            </form>
+            <form action="/rewind" method="post">
+                <button type="submit" class="btn btn-secondary">
+                    <i class="fas fa-backward"></i>
+                </button>
+            </form>
+            <form action="/pause" method="post">
+                <button type="submit" class="btn btn-secondary">
+                    <i class="fas fa-pause"></i>
+                </button>
+            </form>
+            <form action="/skip" method="post">
+                <button type="submit" class="btn btn-secondary">
+                    <i class="fas fa-forward"></i>
+                </button>
+            </form>
+            <form action="/stop" method="post">
+                <button type="submit" class="btn btn-secondary">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+            </form>
+        </div>
+    </footer>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add to Playlist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1 class="my-3 text-center">Add to Playlist</h1>
+    </header>
+    <main>
+        <ul class="list-unstyled text-center">
+        {% for playlist in playlists %}
+            <li class="mb-4">
+                <h5 class="mt-0 mb-1">{{ playlist.name }}</h5>
+                <form action="/add_song_to_playlist" method="post" class="d-inline-block">
+                    <input type="hidden" name="song_id" value="{{ song_id }}">
+                    <input type="hidden" name="playlist_id" value="{{ playlist.id }}">
+                    <button type="submit" class="btn btn-primary">Add to this playlist</button>
+                </form>
+            </li>
+        {% endfor %}
+        </ul>
+    </main>
+</body>
+</html>

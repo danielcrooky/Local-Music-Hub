@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Playlist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1 class="my-3 text-center">{{ playlist.name }}</h1>
+    </header>
+    <main class="text-center">
+        {% if playlist.name != 'All Songs' %}
+        <form action="/delete_playlist" method="post" class="d-inline-block">
+            <input type="hidden" name="playlist_id" value="{{ playlist.id }}">
+            <button type="submit" class="btn btn-danger mr-2">Delete Playlist</button>
+        </form>
+        {% endif %}
+
+        <form action="/add_playlist_to_queue" method="post" class="d-inline-block">
+            <input type="hidden" name="playlist_id" value="{{ playlist.id }}">
+            <button type="submit" class="btn btn-primary">Add Playlist to Queue</button>
+        </form>
+
+        <ul class="list-unstyled mt-4">
+        {% for song in playlist.songs %}
+            <li class="media mb-4">
+                <div class="media-body d-flex align-items-center justify-content-center">
+                    <h5 class="mt-0 mb-1 mr-3">{{ song.title }}</h5>
+                    <form action="/add" method="post" style="display: inline;">
+                        <input type="hidden" name="id" value="{{ song.id }}">
+                        <input type="hidden" name="title" value="{{ song.title }}">
+                        <input type="hidden" name="thumbnail" value="{{ song.thumbnail_url }}">
+                        <button type="submit" class="btn btn-primary mr-2">Add to Queue</button>
+                    </form>
+                    {% if playlist.name != 'All Songs' %}
+                    <form action="/remove_from_playlist" method="post" style="display: inline;">
+                        <input type="hidden" name="song_id" value="{{ song.id }}">
+                        <input type="hidden" name="playlist_id" value="{{ playlist.id }}">
+                        <button type="submit" class="btn btn-danger">Remove from Playlist</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+    </main>
+</body>
+</html>

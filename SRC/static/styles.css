@@ -1,0 +1,69 @@
+body {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+h1, h2 {
+    color: #1DB954; /* Spotify green */
+}
+
+.btn {
+    color: #ffffff; /* White text on buttons */
+}
+
+.btn-primary {
+    background-color: #1DB954; /* Spotify green */
+    border-color: #1DB954;
+}
+
+.btn-success {
+    background-color: #4caf50; /* Darker green */
+    border-color: #4caf50;
+}
+
+.btn-warning {
+    background-color: #ff9800; /* Orange */
+    border-color: #ff9800;
+}
+
+.btn-danger {
+    background-color: #f44336; /* Red */
+    border-color: #f44336;
+}
+
+.btn-secondary {
+    background-color: #868e96; /* Grey */
+    border-color: #868e96;
+}
+
+.btn-info {
+    background-color: #20c997; /* Teal */
+    border-color: #20c997;
+}
+
+.list-group-item {
+    background-color: #222222; /* Darker than body background */
+}
+
+.form-control {
+    background-color: #222222; /* Darker than body background */
+    color: #ffffff; /* White text */
+    border-color: #333333; /* Even darker for the border */
+}
+
+/* Add hover effects on buttons */
+.btn:hover {
+    opacity: 0.9;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #222;
+    color: white;
+    text-align: center;
+    z-index: 1030; /* Make sure footer is above the content */
+}
+

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1 class="my-3 text-center">Search Results</h1>
+    </header>
+    <main>
+        <ul class="list-unstyled">
+        {% for result in results %}
+            <li class="media mb-4">
+                <img src="{{ result.thumbnail }}" class="mr-3" alt="{{ result.title }} thumbnail">
+                <div class="media-body">
+                    <h5 class="mt-0 mb-1">
+                        <a href="{{ result.url }}">{{ result.title }}</a>
+                    </h5>
+                    <form action="/add" method="post" style="display: inline;">
+                        <input type="hidden" name="id" value="{{ result.id }}">
+                        <input type="hidden" name="title" value="{{ result.title }}">
+                        <input type="hidden" name="thumbnail" value="{{ result.thumbnail }}">
+                        <button type="submit" class="btn btn-primary mr-2">Add to Queue</button>
+                    </form>
+                    <form action="/add_to_playlist" method="post" style="display: inline;">
+                        <input type="hidden" name="id" value="{{ result.id }}">
+                        <input type="hidden" name="title" value="{{ result.title }}">
+                        <input type="hidden" name="thumbnail" value="{{ result.thumbnail }}">
+                        <button type="submit" class="btn btn-primary">Add to Playlist</button>
+                    </form>
+                </div>
+            </li>
+        {% endfor %}
+        </ul>
+    </main>
+</body>
+</html>

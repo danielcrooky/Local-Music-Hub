@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Import Spotify Playlist</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <h1 class="my-3 text-center">Import Spotify Playlist</h1>
+    </header>
+    <main class="text-center">
+        <form action="/import_spotify_playlist" method="post" class="d-inline-block">
+            <div class="form-group w-5000 mx-auto">
+                <input type="text" name="playlist_link" class="form-control" placeholder="Enter Spotify playlist link">
+            </div>
+            <button type="submit" class="btn btn-primary">Import</button>
+        </form>
+    </main>
+</body>
+</html>
